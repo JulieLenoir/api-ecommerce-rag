@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  node-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: node-app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongo
+    volumes:
+      - ../:/app
+    working_dir: /app
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/ecommerce
+
+volumes:
+  mongo-data:

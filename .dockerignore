@@ -1,0 +1,24 @@
+.node_modules
+.npm-debug.log
+# Ne pas copier les dépendances locales
+node_modules
+npm-debug.log
+
+# Fichiers de log généraux
+*.log
+
+# Git
+.git
+.gitignore
+
+# Docker files eux-mêmes (facultatif si tu build dans un sous-dossier)
+docker
+docker/Dockerfile
+docker/docker-compose.yml
+
+# Fichiers d’édition
+*.swp
+*.swo
+
+# Environnements
+.env
