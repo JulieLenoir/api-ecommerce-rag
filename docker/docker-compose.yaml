@@ -1,13 +1,19 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: mongo
-    container_name: mongo
+  # mongo:
+  #   image: mongo
+  #   container_name: mongo
+  #   ports:
+  #     - '27017:27017'
+  #   volumes:
+  #     - mongo-data:/data/db
+
+  chromadb:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chromadb
     ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db
+      - '8000:8000'
 
   node-app:
     build:
@@ -17,12 +23,11 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - mongo
+      # - mongo
+      - chromadb  # Ajout ici pour dépendance
     volumes:
       - ../:/app
     working_dir: /app
     environment:
-      - MONGO_URL=mongodb://mongo:27017/ecommerce
-
-volumes:
-  mongo-data:
+      # - MONGO_URL=mongodb://mongo:27017/ecommerce
+      - CHROMA_URL=http://chromadb:8000
